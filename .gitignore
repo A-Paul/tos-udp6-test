@@ -1,3 +1,6 @@
+# All backup stuff
+*~
+
 # Object files
 *.o
 *.ko
@@ -31,3 +34,13 @@
 # Debug files
 *.dSYM/
 *.su
+
+# TinyOS related
+# Ignore application built output
+build
+pp
+# Ignore application based documentation
+doc
+appdoc
+# But not the main documentation folder
+!/doc
