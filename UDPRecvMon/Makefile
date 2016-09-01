@@ -1,0 +1,3 @@
+COMPONENT=UDPRecvMonC
+
+include $(MAKERULES)
