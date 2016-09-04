@@ -10,15 +10,11 @@ implementation
   /*
    * Let the App be started at boot time
    */
-  components MainC;
-  components UDPSendMonC;
+  components UDPSendMonC, MainC;
   UDPSendMonC.Boot -> MainC.Boot;
 
   components IPStackC;
-  UDPSendMonC.RadioControl ->  IPStackC;
+  UDPSendMonC.RadioControl -> IPStackC;
 
-  /* Later ;-)
-  components new UdpSocketC() as UDPSend;
-  UDPSendMonC.UDPSend -> UDPSend;
-  */
+  components IPDispatchC;
 }
