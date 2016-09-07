@@ -1,11 +1,16 @@
+#include "blip_printf.h"
 /*
  * Application body for UDPRecvMon.
  */
 module UDPRecvMonC
 {
-  uses {
+  uses { /* Booting stuff. */
     interface Boot;
     interface SplitControl as RadioControl;
+  }
+
+  uses { /* IP transmission */
+    interface UDP as PacketSend;
   }
 }
 
@@ -21,6 +26,13 @@ implementation
   }
   
   event void RadioControl.stopDone( error_t e)
+  {
+  }
+
+  event void PacketSend.recvfrom( struct sockaddr_in6 *src,
+				  void *payload,
+				  uint16_t len,
+				  struct ip6_metadata *meta)
   {
   }
 }

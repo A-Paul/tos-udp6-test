@@ -14,7 +14,12 @@ implementation
   UDPSendMonC.Boot -> MainC.Boot;
 
   components IPStackC;
-  UDPSendMonC.RadioControl -> IPStackC;
+  UDPSendMonC.RadioControl -> IPStackC.SplitControl;
 
-  components IPDispatchC;
+  components UdpC;
+  components new UdpSocketC() as PacketSend;
+  UDPSendMonC.PacketSend -> PacketSend;
+
+  components SerialStartC;
+  components SerialPrintfC;
 }
