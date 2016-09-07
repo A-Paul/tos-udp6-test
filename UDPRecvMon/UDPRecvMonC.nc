@@ -1,4 +1,5 @@
 #include "blip_printf.h"
+#include "../include/UDP6Test.h"
 /*
  * Application body for UDPRecvMon.
  */
@@ -20,9 +21,16 @@ implementation
   {
     call RadioControl.start();
   }
-  
-  event void RadioControl.startDone( error_t e)
+
+  event void RadioControl.startDone( error_t error)
   {
+    if(error == SUCCESS) {
+      printf("RadioControl.start...OK\n");
+      call PacketSend.bind(UDP6_TEST_PORT);
+    } else {
+      printf("RadioControl.start...failed\n");
+      call RadioControl.start();
+    }
   }
   
   event void RadioControl.stopDone( error_t e)
@@ -34,5 +42,7 @@ implementation
 				  uint16_t len,
 				  struct ip6_metadata *meta)
   {
+    /* This is nasty! And dangerous!! */
+    printf("Payload (l:d): %d:%s", len, payload);
   }
 }
