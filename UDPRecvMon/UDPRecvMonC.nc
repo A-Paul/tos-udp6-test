@@ -17,6 +17,7 @@ module UDPRecvMonC
 
 implementation
 {
+
   event void Boot.booted()
   {
     call RadioControl.start();
@@ -43,6 +44,7 @@ implementation
 				  struct ip6_metadata *meta)
   {
     /* This is nasty! And dangerous!! */
-    printf("Payload (l:d): %d:%s", len, payload);
+    printf("Payload (l:d): %.*s", len, (char*)payload);
+    printfflush();
   }
 }
