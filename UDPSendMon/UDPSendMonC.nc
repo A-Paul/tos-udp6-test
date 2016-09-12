@@ -25,6 +25,7 @@ implementation
 
   /* Socket to target */
   struct sockaddr_in6 tgt_addr;
+  uint32_t send_counter = 0;
 
   task void sendPacket();
 
@@ -67,7 +68,12 @@ implementation
 
   event void SendSequence.fired()
   {
-    post sendPacket();
+    if (UDP6_TEST_SEND_COUNT > send_counter) {
+      post sendPacket();
+      send_counter++;
+    } else {
+      call SendSequence.stop();
+    }
   }
 
   task void sendPacket()
