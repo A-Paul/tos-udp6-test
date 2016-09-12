@@ -8,10 +8,15 @@ module UDPSendMonC
   uses { /* Booting stuff. */
     interface Boot;
     interface SplitControl as RadioControl;
+    interface Timer<TMilli> as StartDelay;
   }
 
   uses { /* IP transmission */
     interface UDP as PacketSend;
+  }
+
+  uses {
+    interface Timer<TMilli> as SendSequence;
   }
 }
 
@@ -37,7 +42,7 @@ implementation
       inet_pton6(UDP6_TEST_TGT_IN6, &tgt_addr.sin6_addr);
       tgt_addr.sin6_port = htons(UDP6_TEST_PORT);
 
-      post sendPacket();
+      call StartDelay.startOneShot( UDP6_TEST_START_DELAY_MILLI);
     } else {
       printf("RadioControl.start...failed\n");
       call RadioControl.start();
@@ -53,6 +58,16 @@ implementation
 				  uint16_t len,
 				  struct ip6_metadata *meta)
   {
+  }
+
+  event void StartDelay.fired()
+  {
+    call SendSequence.startPeriodic( UDP6_TEST_SEND_DELAY_MILLI);
+  }
+
+  event void SendSequence.fired()
+  {
+    post sendPacket();
   }
 
   task void sendPacket()

@@ -13,6 +13,14 @@ implementation
   components UDPSendMonC, MainC;
   UDPSendMonC.Boot -> MainC.Boot;
 
+  /* Initial (one time) inactivity peroid after booting. */
+  components new TimerMilliC() as StartDelay;
+  UDPSendMonC.StartDelay -> StartDelay;
+
+  /* Periodic sending of packets. */
+  components new TimerMilliC() as SendSequence;
+  UDPSendMonC.SendSequence -> SendSequence;
+
   components IPStackC;
   UDPSendMonC.RadioControl -> IPStackC.SplitControl;
 
