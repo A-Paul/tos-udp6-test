@@ -1,7 +1,10 @@
+#include <stdio.h>
 #include "lib6lowpan/lib6lowpan.h" /* Just needed for ``htons()`` */
 #include "../include/UDP6Test.h"
 /**
  * Application body for UDPSendMon.
+ *
+ * @author  Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
 module UDPSendMonC
 {
@@ -13,9 +16,6 @@ module UDPSendMonC
 
   uses { /* IP transmission */
     interface UDP as PacketSend;
-  }
-
-  uses {
     interface Timer<TMilli> as SendSequence;
   }
 }
@@ -78,11 +78,10 @@ implementation
 
   task void sendPacket()
   {
-    static char* payload = "Cooler-Scheiss\n";
-    static uint16_t pl_len = 0x10;
     static error_t send_result;
-    send_result = call PacketSend.sendto( &tgt_addr, payload, pl_len);
-
-    printf("Send result: %d\n", send_result);
+    char payload[UDP6_TEST_PAYLOAD_LEN] = {0};
+    snprintf( payload, UDP6_TEST_PAYLOAD_LEN, "%03u Msg buffer w/20b", send_counter);
+    printf("tx %03u\n", send_counter);
+    send_result = call PacketSend.sendto( &tgt_addr, payload, UDP6_TEST_PAYLOAD_LEN);
   }
 }

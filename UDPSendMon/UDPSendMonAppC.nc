@@ -1,6 +1,8 @@
 #include "printf.h"
 /*
  * Application configuration for UDPSendMon.
+ *
+ * @author  Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
 configuration UDPSendMonAppC
 {

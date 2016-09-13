@@ -1,6 +1,8 @@
 #include "../include/UDP6Test.h"
 /*
  * Application body for UDPRecvMon.
+ *
+ * @author  Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
 module UDPRecvMonC
 {
@@ -37,13 +39,13 @@ implementation
   {
   }
 
+  /* signaled on each packet arrival on port 'UDP6_TEST_PORT' */
   event void PacketSend.recvfrom( struct sockaddr_in6 *src,
 				  void *payload,
 				  uint16_t len,
 				  struct ip6_metadata *meta)
   {
-    /* This is nasty! And dangerous!! */
-    printf("Payload (l:d): %.*s", len, (char*)payload);
-    printfflush();
+    /* Get 3 bytes (formatted packet counter) out of payload. */
+    printf("rx %.*s\n", 3, (char*)payload);
   }
 }

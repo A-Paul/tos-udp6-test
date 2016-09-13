@@ -1,6 +1,8 @@
 #include "printf.h"
 /*
  * Application configuration for UDPRecvMon.
+ *
+ * @author  Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
 configuration UDPRecvMonAppC
 {
