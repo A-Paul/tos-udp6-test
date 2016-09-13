@@ -1,4 +1,4 @@
-#include "blip_printf.h"
+#include "lib6lowpan/lib6lowpan.h" /* Just needed for ``htons()`` */
 #include "../include/UDP6Test.h"
 /**
  * Application body for UDPSendMon.

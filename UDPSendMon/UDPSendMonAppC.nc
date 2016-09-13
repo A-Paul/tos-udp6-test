@@ -1,3 +1,4 @@
+#include "printf.h"
 /*
  * Application configuration for UDPSendMon.
  */
@@ -21,13 +22,12 @@ implementation
   components new TimerMilliC() as SendSequence;
   UDPSendMonC.SendSequence -> SendSequence;
 
+  /* Put before "IPStackC". Otherwise printf will *fuck you*!!! */
+  components SerialPrintfC;
+
   components IPStackC;
   UDPSendMonC.RadioControl -> IPStackC.SplitControl;
 
-  components UdpC;
   components new UdpSocketC() as PacketSend;
   UDPSendMonC.PacketSend -> PacketSend;
-
-  components SerialStartC;
-  components SerialPrintfC;
 }

@@ -1,4 +1,3 @@
-#include "blip_printf.h"
 #include "../include/UDP6Test.h"
 /*
  * Application body for UDPRecvMon.
