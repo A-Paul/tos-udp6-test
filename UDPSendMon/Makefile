@@ -7,6 +7,9 @@ COMPONENT=UDPSendMonAppC
 # Suppress creation of a global ipv6.
 PFLAGS += -DIN6_NO_GLOBAL
 
+# Disable header compression.
+PFLAGS += -DLIB6LOWPAN_HC_VERSION=-1
+
 # Needed by PrintfC, SerialPrintfC.
 CFLAGS += -I$(TOSDIR)/lib/printf
 PFLAGS += -DNEW_PRINTF_SEMANTICS -DPRINTUART_ENABLED
