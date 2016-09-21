@@ -36,6 +36,9 @@
  * @author JeongGil Ko
  * @author Razvan Musaloiu-E
  * @version $Revision: 1.18 $ $Date: 2010-04-13 20:27:05 $
+ *
+ * Modified on 2016-09-20
+ * @author  Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
 
 #include "CC2420.h"
@@ -82,6 +85,8 @@ module CC2420TransmitP @safe() {
 
   uses interface CC2420Receive;
   uses interface Leds;
+
+  uses interface StdControl as TimeProbeControl;
 }
 
 implementation {
@@ -565,6 +570,7 @@ implementation {
     
     if ( acquireSpiResource() == SUCCESS ) {
       loadTXFIFO();
+      call TimeProbeControl.stop();
     }
 
     return SUCCESS;

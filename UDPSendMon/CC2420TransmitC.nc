@@ -34,6 +34,9 @@
  *
  * @author Jonathan Hui <jhui@archrock.com>
  * @version $Revision: 1.3 $ $Date: 2009-08-14 20:33:43 $
+ *
+ * Modified on 2016-09-20
+ * @author  Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
 
 #include "IEEE802154.h"
@@ -103,4 +106,6 @@ implementation {
   components LedsC;
   CC2420TransmitP.Leds -> LedsC;
 
+  components TimeProbeC;
+  CC2420TransmitP.TimeProbeControl -> TimeProbeC;
 }

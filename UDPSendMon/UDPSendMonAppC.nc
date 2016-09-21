@@ -32,4 +32,8 @@ implementation
 
   components new UdpSocketC() as PacketSend;
   UDPSendMonC.PacketSend -> PacketSend;
+
+  components TimeProbeC;
+  UDPSendMonC.TimeProbeControl -> TimeProbeC;
+  UDPSendMonC.TimeProbeGet ->  TimeProbeC;
 }

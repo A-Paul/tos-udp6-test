@@ -18,6 +18,11 @@ module UDPSendMonC
     interface UDP as PacketSend;
     interface Timer<TMilli> as SendSequence;
   }
+
+  uses { /* Measure time difference */
+    interface Get<uint32_t> as TimeProbeGet;
+    interface StdControl as TimeProbeControl;
+  }
 }
 
 implementation
@@ -28,6 +33,7 @@ implementation
   uint32_t send_counter = 0;
 
   task void sendPacket();
+  task void printTimeDiff();
 
   event void Boot.booted()
   {
@@ -79,9 +85,17 @@ implementation
   task void sendPacket()
   {
     static error_t send_result;
+
     char payload[UDP6_TEST_PAYLOAD_LEN] = {0};
     snprintf( payload, UDP6_TEST_PAYLOAD_LEN, "%03u Msg buffer w/20b", send_counter);
     printf("tx %03u\n", send_counter);
+    call TimeProbeControl.start();
     send_result = call PacketSend.sendto( &tgt_addr, payload, UDP6_TEST_PAYLOAD_LEN);
+    post printTimeDiff();
+  }
+
+  task void printTimeDiff()
+  {
+    printf("tx: %010lu us\n", call TimeProbeGet.get());
   }
 }
