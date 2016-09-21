@@ -50,9 +50,8 @@ implementation
 				  uint16_t len,
 				  struct ip6_metadata *meta)
   {
-    /* Get 3 bytes (formatted packet counter) out of payload. */
-    printf("rx %.*s\n", 3, (char*)payload);
     call TimeProbeControl.stop();
-    printf( "rx: %010lu\n", call TimeProbeGet.get());
+    printf( " rx %lu %.*s\n rx_driver %lu\n rx_stack\n",
+	    call TimeProbeGet.get(), 3, (char*)payload, 0L);
   }
 }

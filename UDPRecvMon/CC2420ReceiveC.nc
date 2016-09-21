@@ -87,4 +87,6 @@ implementation {
   CC2420ReceiveP.RXFIFO_RAM -> Spi.RXFIFO_RAM;
   CC2420ReceiveP.SNOP -> Spi.SNOP;
 
+  components TimeProbeC;
+  CC2420ReceiveP.TimeProbeControl -> TimeProbeC;
 }

@@ -74,6 +74,8 @@ module CC2420ReceiveP @safe() {
   uses interface CC2420Strobe as SNOP;
 
   uses interface Leds;
+
+  uses interface StdControl as TimeProbeControl;
 }
 
 implementation {
@@ -210,6 +212,7 @@ implementation {
   
   /***************** InterruptFIFOP Events ****************/
   async event void InterruptFIFOP.fired() {
+    call TimeProbeControl.start();
     if ( m_state == S_STARTED ) {
 #ifndef CC2420_HW_SECURITY
       m_state = S_RX_LENGTH;
