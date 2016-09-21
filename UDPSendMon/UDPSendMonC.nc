@@ -88,7 +88,6 @@ implementation
 
     char payload[UDP6_TEST_PAYLOAD_LEN] = {0};
     snprintf( payload, UDP6_TEST_PAYLOAD_LEN, "%03u Msg buffer w/20b", send_counter);
-    printf("tx %03u\n", send_counter);
     call TimeProbeControl.start();
     send_result = call PacketSend.sendto( &tgt_addr, payload, UDP6_TEST_PAYLOAD_LEN);
     post printTimeDiff();
@@ -96,6 +95,7 @@ implementation
 
   task void printTimeDiff()
   {
-    printf("tx: %010lu us\n", call TimeProbeGet.get());
+    printf(" tx: %lu %03u\n tx_driver %lu\n tx_stack\n",
+	   call TimeProbeGet.get(), send_counter, 0L);
   }
 }
